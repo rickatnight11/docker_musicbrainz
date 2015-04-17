@@ -45,7 +45,7 @@ Download and load latest database dump (recommended):
 <BASE COMMAND> /opt/musicbrainz/initdb.sh
 ```
 
-The `loaddb.sh` script will locate and pull down the latest MusicBrainz database dump from ftp://ftp.musicbrainz.org/pub/musicbrainz/data/fullexport/ to `/tmp` inside the container.  As these files total upwards of 5GB, I highly recommend mounting a host path to `/tmp` to improve performance and keep the container size small (i.e. `-v /some/host/path:tmp`).
+The `loaddb.sh` script will locate and pull down the latest MusicBrainz database dump from ftp://ftp.musicbrainz.org/pub/musicbrainz/data/fullexport/ to `/tmp` inside the container.  As these files total upwards of 5GB and extract to much larger than that, I highly recommend mounting a host path to `/tmp` to improve performance and keep the container size small (i.e. `-v /some/host/path:tmp`).
 
 If you just want to initialize a clean database (not recommended):
 
