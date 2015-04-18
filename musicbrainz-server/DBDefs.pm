@@ -51,38 +51,38 @@ use MusicBrainz::Server::DatabaseConnectionFactory;
 MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
     # How to connect when we need read-write access to the database
     READWRITE => {
-        database    => "musicbrainz_db",
-        schema          => "musicbrainz",
+        database    => "musicbrainz",
+        schema      => "musicbrainz",
         username    => "musicbrainz",
-        password        => "musicbrainz",
-#       host            => "",
-#       port            => "",
+        password    => "musicbrainz",
+        host        => "db",
+        port        => "5432",
     },
     # How to connect to a test database
     TEST => {
         database    => "musicbrainz_test",
-        schema          => "musicbrainz",
+        schema      => "musicbrainz",
         username    => "musicbrainz",
-        password        => "musicbrainz",
-#       host            => "",
-#       port            => "",
+        password    => "musicbrainz",
+        host        => "db",
+        port        => "5432",
     },
     # How to connect for read-only access.  See "REPLICATION_TYPE" (below)
     READONLY => {
-        database    => "musicbrainz_db",
-        schema          => "musicbrainz",
+        database    => "musicbrainz",
+        schema      => "musicbrainz",
         username    => "musicbrainz",
-        password        => "musicbrainz",
-#       host            => "",
-#       port            => "",
+        password    => "musicbrainz",
+        host        => "db",
+        port        => "5432",
     },
     # How to connect for administrative access
     SYSTEM    => {
         database    => "template1",
-        username    => "postgres",
-#       password        => "",
-#       host            => "",
-#       port            => "",
+        username    => "musicbrainz",
+        password    => "musicbrainz",
+        host        => "db",
+        port        => "5432",
     },
     # Fill out only if RAWDATA lives on a different host from the READWRITE server.
     # RAWDATA_SYSTEM => undef,
@@ -107,7 +107,7 @@ sub DB_SCHEMA_SEQUENCE { 21 }
 #               choose RT_SLAVE, as well as the usual READWRITE.
 # * RT_STANDALONE - This server neither generates nor uses replication
 #               packets.  Changes to the database are allowed.
-# sub REPLICATION_TYPE { RT_STANDALONE }
+sub REPLICATION_TYPE { RT_SLAVE }
 
 ################################################################################
 # GPG Signature
@@ -136,7 +136,7 @@ sub DB_SCHEMA_SEQUENCE { 21 }
 # Additionally you should set the environment variable
 # MUSICBRAINZ_USE_PROXY=1 when using a reverse proxy to make the server
 # aware of it when generating things like the canonical url in catalyst.
-sub WEB_SERVER                { "www.musicbrainz.example.com" }
+sub WEB_SERVER                { "localhost:5000" }
 # Relevant only if SSL redirects are enabled
 # sub WEB_SERVER_SSL            { "localhost" }
 # sub LUCENE_SERVER             { "search.musicbrainz.org" }
@@ -172,7 +172,7 @@ sub WEB_SERVER                { "www.musicbrainz.example.com" }
 # Keeping this defined enables the banner that is shown across the top of each
 # page, as well as some testing features that are only enabled when not on
 # the live server.
-# sub DB_STAGING_SERVER { 1 }
+sub DB_STAGING_SERVER { 0 }
 
 # This description is shown in the banner when DB_STAGING_SERVER is enabled.
 # If left undefined the default value will be shown.
@@ -410,12 +410,12 @@ sub WEB_SERVER                { "www.musicbrainz.example.com" }
 
 # sub USE_ETAGS { 1 }
 
-# sub CATALYST_DEBUG { 1 }
+sub CATALYST_DEBUG { 0 }
 
 # If you are developing on MusicBrainz, you should set this to a true value
 # This will turn off some optimizations (such as CSS/JS compression) to make
 # developing and debuging easier
-# sub DEVELOPMENT_SERVER { 1 }
+sub DEVELOPMENT_SERVER { 0 }
 
 # How long to wait before rechecking template files (undef uses the
 # Template::Toolkit default)

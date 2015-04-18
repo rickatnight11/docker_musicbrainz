@@ -9,7 +9,7 @@ Prerequisites
 
 Build Instructions
 ------------------
-1. Copy `DBDefs.pm.sample` to `DBDefs.pm` and modify to match your environment.  At the minimum configure the database settings. (If you're using the included `musicbrainz-postgres` container and link them according to the *Usage Instructions* below, the database hostname and port should just be `db` and `5432` respectively.)
+1. Modify `DBDefs.pm` to match your environment.  By default it's configured appropriately for the related `musicbrainz-postgres` container linked according to the *Usage Instructions* below.
 
 2. Build `musicbrainz-server` container (this will take a while)
 
@@ -26,7 +26,7 @@ The base recommended Docker command to run this container is...
 docker run -i -t --rm --name musicbrainz-server musicbrainz-server ...
 ```
 
-If you're using the included `musicbrainz-postgres` (or another Postgres) container you can link your `musicbrainz-server` containers to it to simplify networking.  Assuming the Postgres container is called `musicbrainz-postgres`, your base Docker parameters would look something like this:
+If you're using the related `musicbrainz-postgres` (or another Postgres) container you can link your `musicbrainz-server` containers to it to simplify networking.  Assuming the Postgres container is called `musicbrainz-postgres`, your base Docker parameters would look something like this:
 
 ```
 docker run -i -t --rm --name musicbrainz-server --link musicbrainz-postgres:db musicbrainz-server ...
