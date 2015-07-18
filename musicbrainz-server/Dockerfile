@@ -32,7 +32,6 @@ RUN mkdir -p /opt/musicbrainz
 WORKDIR /opt/musicbrainz
 RUN git clone --recursive git://github.com/metabrainz/musicbrainz-server.git .
 RUN git checkout tags/v-2015-07-13
-ADD DBDefs.pm /opt/musicbrainz/lib/
 
 # Install perl dependencies
 RUN echo 'eval $( perl -Mlocal::lib )' >> ~/.bashrc
@@ -50,3 +49,6 @@ RUN ./node_modules/.bin/gulp
 ADD initdb.sh /opt/musicbrainz/
 ADD startmb.sh /opt/musicbrainz/
 ADD updatedb.sh /opt/musicbrainz/
+
+# Add MusicBrainz config
+ADD DBDefs.pm /opt/musicbrainz/lib/
