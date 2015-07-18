@@ -4,7 +4,7 @@ Instructions for building and running MusicBrainz in Docker containers
 Features
 --------
 * Ubuntu 14.10 base
-* Full MusicBrainz web/API mirror
+* Full MusicBrainz web/API mirror (current tag: **v-2015-07-13**)
 * Helper scripts (start, initialize/seed/update DB, etc)
 * Optional HTTP mirror support
 * Optional tuned Postgres container
