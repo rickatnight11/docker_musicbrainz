@@ -42,7 +42,7 @@ The rest of the instructions will refer to whatever your base command is as `<BA
 Download and load latest database dump (recommended):
 
 ```
-<BASE COMMAND> /opt/musicbrainz/initdb.sh
+<BASE COMMAND> /opt/musicbrainz/loaddb.sh
 ```
 
 The `loaddb.sh` script will locate and pull down the latest MusicBrainz database dump from ftp://ftp.musicbrainz.org/pub/musicbrainz/data/fullexport/ to `/tmp` inside the container.  As these files total upwards of 5GB and extract to much larger than that, I highly recommend mounting a host path to `/tmp` to improve performance and keep the container size small (i.e. `-v /some/host/path:tmp`).
@@ -50,7 +50,7 @@ The `loaddb.sh` script will locate and pull down the latest MusicBrainz database
 If you just want to initialize a clean database (not recommended):
 
 ```
-<BASE COMMAND> /opt/musicbrainz/initdb.sh --clean
+<BASE COMMAND> /opt/musicbrainz/loaddb.sh --clean
 ```
 
 ### Update MusicBrainz database
@@ -66,7 +66,7 @@ You run this at any time, even with a live `musicbrainz-server` container runnin
 ### Start MusicBrainz Server
 
 ```
-<BASE COMMAND> /opt/musicbrainz/startmb.sh
+<BASE COMMAND> /opt/musicbrainz/start.sh
 ```
 
 Don't forget to add `-p 5000:5000` (or whatever you've configured the web port to be) to your `<BASE COMMAND>` before the container name!

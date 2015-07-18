@@ -46,8 +46,8 @@ RUN npm install
 RUN ./node_modules/.bin/gulp
 
 # Add scripts
-ADD initdb.sh /opt/musicbrainz/
-ADD startmb.sh /opt/musicbrainz/
+ADD loaddb.sh /opt/musicbrainz/
+ADD start.sh /opt/musicbrainz/
 ADD updatedb.sh /opt/musicbrainz/
 
 # Add MusicBrainz config
