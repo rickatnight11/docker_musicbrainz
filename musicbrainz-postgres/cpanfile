@@ -1,0 +1,10 @@
+requires 'MooseX::ABC'                                => '0.05';
+requires 'MooseX::Clone';
+requires 'MooseX::Getopt';
+requires 'MooseX::MethodAttributes'                   => '0.24';
+requires 'MooseX::Role::Parameterized'                => '0.16';
+requires 'MooseX::Runnable';
+requires 'MooseX::Singleton';
+requires 'MooseX::Types'                              => '0.16';
+requires 'MooseX::Types::Structured'                  => '0.24';
+requires 'MooseX::Types::URI'                         => '0.03';
