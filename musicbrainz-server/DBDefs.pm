@@ -52,7 +52,6 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
     # How to connect when we need read-write access to the database
     READWRITE => {
         database    => "musicbrainz",
-        schema      => "musicbrainz",
         username    => "musicbrainz",
         password    => "musicbrainz",
         host        => "db",
@@ -61,7 +60,6 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
     # How to connect to a test database
     TEST => {
         database    => "musicbrainz_test",
-        schema      => "musicbrainz",
         username    => "musicbrainz",
         password    => "musicbrainz",
         host        => "db",
@@ -70,7 +68,6 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
     # How to connect for read-only access.  See "REPLICATION_TYPE" (below)
     READONLY => {
         database    => "musicbrainz",
-        schema      => "musicbrainz",
         username    => "musicbrainz",
         password    => "musicbrainz",
         host        => "db",
@@ -84,6 +81,16 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
         host        => "db",
         port        => "5432",
     },
+    # How to connect when running maintenance scripts located under admin/.
+    # This defaults to READWRITE if left undefined, but should be configured if
+    # READWRITE points to a connection pooler that doesn't support session-based features.
+#   MAINTENANCE    => {
+#       database    => "musicbrainz_db",
+#       username    => "musicbrainz",
+#       password        => "musicbrainz",
+#       host            => "",
+#       port            => "5432",
+#   },
     # Fill out only if RAWDATA lives on a different host from the READWRITE server.
     # RAWDATA_SYSTEM => undef,
 );
@@ -110,10 +117,10 @@ sub DB_SCHEMA_SEQUENCE { 22 }
 sub REPLICATION_TYPE { RT_SLAVE }
 
 # If you plan to use the RT_SLAVE setting (replicated data from MusicBrainz' Live Data Feed)
-# # you must sign in at https://metabrainz.org and generate an access token to access
-# # the replication packets. Enter the access token below:
-# # NOTE: DO NOT EXPOSE THIS ACCESS TOKEN PUBLICLY! 
-# #
+# you must sign in at https://metabrainz.org and generate an access token to access
+# the replication packets. Enter the access token below:
+# NOTE: DO NOT EXPOSE THIS ACCESS TOKEN PUBLICLY!
+#
 sub REPLICATION_ACCESS_TOKEN { "" }
 
 ################################################################################
@@ -143,7 +150,7 @@ sub REPLICATION_ACCESS_TOKEN { "" }
 # Additionally you should set the environment variable
 # MUSICBRAINZ_USE_PROXY=1 when using a reverse proxy to make the server
 # aware of it when generating things like the canonical url in catalyst.
-sub WEB_SERVER                { "localhost:5000" }
+sub WEB_SERVER                { "localhost" }
 # Relevant only if SSL redirects are enabled
 # sub WEB_SERVER_SSL            { "localhost" }
 # sub LUCENE_SERVER             { "search.musicbrainz.org" }
@@ -285,6 +292,10 @@ sub DB_STAGING_SERVER { 0 }
 #     return \%CACHE_MANAGER_OPTIONS
 # }
 
+# Sets the TTL for entities stored in memcached, in seconds. A value of 0
+# indicates that no expiration is set.
+# sub ENTITY_CACHE_TTL { 0 }
+
 ################################################################################
 # Rate-Limiting
 ################################################################################
@@ -315,7 +326,7 @@ sub DB_STAGING_SERVER { 0 }
 # sub DATASTORE_REDIS_ARGS {
 #     my $self = shift;
 #     return {
-#         prefix => $self->MEMCACHED_NAMESPACE(),
+#         prefix => 'MB:',
 #         database => 0,
 #         test_database => 1,
 #         redis_new_args => {
@@ -436,9 +447,6 @@ sub DEVELOPMENT_SERVER { 0 }
 # Should the site fall back to browser settings when trying to set a language
 # (note: will still only use languages in MB_LANGUAGES)
 # sub LANGUAGE_FALLBACK_TO_BROWSER{ 1 }
-
-# Private, please do not change
-# sub _RUNNING_TESTS { 0 }
 
 # Set this to an email address and the server will email any bugs to you
 # sub EMAIL_BUGS { undef }

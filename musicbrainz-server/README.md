@@ -1,5 +1,11 @@
 # musicbrainz-server Container
 
+Based on the official Ubuntu 15.10 container, this container runs MusicBrainz
+Server (from the official [git repo](https://github.com/metabrainz/musicbrainz-server)
+).
+
+**Current Version:** `v-2016-03-07`
+
 Prerequisites
 -------------
 
@@ -16,7 +22,8 @@ Build Instructions
 
 1. Modify `DBDefs.pm` to match your environment.  By default it's configured
 appropriately for the related `musicbrainz-postgres` container linked according
-to the **Usage Instructions** below.
+to the **Usage Instructions** below. (Make sure to set your personal
+`REPLICATION_ACCESS_TOKEN` as instructed in the file.)
 
 2. Build `musicbrainz-server` container (this will take a while)
 
@@ -61,7 +68,7 @@ The `loaddb.sh` script will locate and pull down the latest MusicBrainz database
 dump from `ftp://ftp.musicbrainz.org/pub/musicbrainz/data/fullexport/` to `/tmp`
 inside the container.  As these files total upwards of 5GB and extract to much
 larger than that, I highly recommend mounting a host path to `/tmp` to improve
-performance and keep the container size small (i.e. `... -v /some/host/path:tmp`).
+performance and keep the container size small (i.e. `... -v /some/host/path:/tmp`).
 
 If you just want to initialize a clean database (not recommended):
 
