@@ -6,6 +6,9 @@ ENV POSTGRES_USER=musicbrainz
 ENV POSTGRES_PASSWORD=musicbrainz
 ENV POSTGRES_DB=initial
 
+# OPTIONAL: Configure apt-get proxy
+#RUN echo 'Acquire::http::Proxy "http://PROXY:PORT";' >> /etc/apt/apt.conf
+
 # Deps
 RUN echo "deb http://http.us.debian.org/debian stable main contrib non-free" > /etc/apt/sources.list.d/nonfree.list
 RUN apt-get update
