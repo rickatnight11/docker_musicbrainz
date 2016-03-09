@@ -4,7 +4,7 @@ MAINTAINER Paulson McIntyre <paul+docker@gpmidi.net>
 # Set DB params
 ENV POSTGRES_USER=musicbrainz
 ENV POSTGRES_PASSWORD=musicbrainz
-ENV POSTGRES_DB=musicbrainz
+ENV POSTGRES_DB=initial
 ENV PGDATA=/data
 
 # OPTIONAL: Configure apt-get proxy
