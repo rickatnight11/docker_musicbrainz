@@ -2,9 +2,11 @@
 
 This container is based on the official `postgres` container.  By default it
 will create a `musicbrainz` DB superuser (password same as username) for
-MusicBrainz to use.  On first run, it will initialize a database called
-`musicbrainz`, as well. (To change these settings, see **Prerequisites**
-section below.)
+MusicBrainz to use.
+
+On first run, it will initialize a database called `musicbrainz` (installed to
+`/data`), as well. (To change these settings, see **Prerequisites** section
+below.)
 
 Prerequisites
 -------------
@@ -46,5 +48,5 @@ If you have host-based storage available for the Postgres DB files
 
 
 ```
-docker run -t --rm  -v /path/to/storage/location:/var/lib/postgresql -p 5432:5432 --name musicbrainz_postgres musicbrainz_postgres ...
+docker run -t --rm  -v /path/to/storage/location:/data -p 5432:5432 --name musicbrainz_postgres musicbrainz_postgres ...
 ```
