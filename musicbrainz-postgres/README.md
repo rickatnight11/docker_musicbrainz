@@ -32,30 +32,3 @@ If you have host-based storage available for the Postgres DB files
 ```
 docker run -t --rm  -v /path/to/storage/location:/var/lib/postgresql -p 5432:5432 --name musicbrainz_postgres musicbrainz_postgres ...
 ```
-
-The rest of the instructions will refer to whatever your base command is as `<BASE COMMAND>`.
-
-
-### Initialize Postgres database
-
-You should only need to run this once:
-
-```
-<BASE COMMAND> /init.db
-```
-
-### Create database user for musicbrainz
-
-You should only need to run this once:
-
-```
-<BASE COMMAND> /createuser.sh
-```
-
-### Start database server
-
-```
-<BASE COMMAND> /startdb.sh
-```
-
-You should be all set!
