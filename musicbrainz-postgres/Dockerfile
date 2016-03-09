@@ -14,7 +14,8 @@ RUN apt-get install -y adduser sudo git unzip unrar \
         postgresql-server-dev-9.4 \
         postgresql-plperl-9.4 libjson-xs-perl libicu-dev \
  && apt-get clean autoclean \
- && apt-get autoremove -y
+ && apt-get autoremove -y \
+ && rm -rf /var/lib/{apt,dpkg,cache,log}/
 
 
 # Install MusicBrainz pg extension
