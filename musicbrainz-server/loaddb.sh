@@ -1,9 +1,12 @@
 #!/bin/bash
 
+set -e
+
 # Instantiate clean DB
 if [ "$1" = "--clean" ]
 then
   echo "Intantiating clean database..."
+  cd /opt/musicbrainz/
   ./admin/InitDb.pl --createdb --clean
   echo "Fresh database instantiation complete!"
 
@@ -26,6 +29,7 @@ else
   pushd /tmp/${LATEST}/ && md5sum -c MD5SUMS && popd
 
   # Import database dumps
+  cd /opt/musicbrainz/
   ./admin/InitDb.pl --createdb --import /tmp/${LATEST}/mbdump*.tar.bz2 --echo
   
 fi

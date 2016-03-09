@@ -1,19 +1,20 @@
 ############################################
 # Dockerfile to build musicbrainz containers
-# Based on Ubuntu 14.10
+# Based on Ubuntu 15.10
 ############################################
 
 # Set the base image to Ubuntu
-FROM ubuntu:14.10
+FROM ubuntu:15.10
 
 # File Author / Maintainer
-MAINTAINER Rick White <rickatnight11@gmail.com>
+MAINTAINER Rick White
 
 # Add extra repos
-RUN echo "deb http://us.archive.ubuntu.com/ubuntu/ utopic universe multiverse" >> /etc/apt/sources.list
+RUN sed -i -e "s/^# deb\(.*multiverse$\)/deb\1/g" /etc/apt/sources.list
+RUN echo "deb http://cz.archive.ubuntu.com/ubuntu wily main multiverse" >> /etc/apt/sources.list
 
-# Configure apt-get HTTP proxy
-#RUN echo 'Acquire::http::Proxy "http://hostname:port";' >> /etc/apt/apt.conf
+# Configure apt-get proxy
+#RUN echo 'Acquire::http::Proxy "http://PROXY";' >> /etc/apt/apt.conf
 
 # Install system dependencies
 RUN apt-get update && \
@@ -31,24 +32,26 @@ rm -rf /var/lib/{apt,dpkg,cache,log}/
 RUN mkdir -p /opt/musicbrainz
 WORKDIR /opt/musicbrainz
 RUN git clone --recursive git://github.com/metabrainz/musicbrainz-server.git .
-RUN git checkout tags/v-2015-07-13
+RUN git checkout tags/v-2016-03-07
 
 # Install perl dependencies
 RUN echo 'eval $( perl -Mlocal::lib )' >> ~/.bashrc
-#RUN http_proxy=http://hostname:port cpanm --installdeps --notest .
-RUN cpanm --installdeps --notest .
+#RUN http_proxy=http://PROXY cpanm --installdeps --notest .
 RUN cpanm SARTAK/MooseX-Role-Parameterized-1.02.tar.gz
 
 # Install nodejs dependencies
 RUN npm install
 
+# Add MusicBrainz config
+ADD DBDefs.pm /opt/musicbrainz/lib/
+
 # Build JavaScript/CSS
-RUN ./node_modules/.bin/gulp
+RUN ./script/compile_resources.sh
 
 # Add scripts
 ADD loaddb.sh /opt/musicbrainz/
 ADD start.sh /opt/musicbrainz/
 ADD updatedb.sh /opt/musicbrainz/
 
-# Add MusicBrainz config
-ADD DBDefs.pm /opt/musicbrainz/lib/
+# Expose port
+EXPOSE 5000
