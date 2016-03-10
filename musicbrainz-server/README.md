@@ -11,11 +11,10 @@ Prerequisites
 
 1. Ensure you have an accessible Postgres server provisioned as per [here](../README.md).
 
-2. *Optional:* As the MusicBrainz install pulls down a pile of packages and Perl
-modules, I highly suggest setting up an HTTP caching proxy (like Squid) and
+2. *Optional:* As the MusicBrainz install pulls down a pile of packages and
+dependencies, I highly suggest setting up an HTTP caching proxy (like Squid) and
 modify the Dockerfile appropriately (see commented-out lines) to use it.  This
-will save you lots of time on re-runs.  (*Note:* I couldn't get `npm install` to
-work correctly through my Squid proxy.  Any advice would be appreciated.)
+will save you lots of time on re-runs.
 
 Build Instructions
 ------------------

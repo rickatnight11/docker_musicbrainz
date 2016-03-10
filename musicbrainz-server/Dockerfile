@@ -13,8 +13,10 @@ MAINTAINER Rick White
 RUN sed -i -e "s/^# deb\(.*multiverse$\)/deb\1/g" /etc/apt/sources.list
 RUN echo "deb http://cz.archive.ubuntu.com/ubuntu wily main multiverse" >> /etc/apt/sources.list
 
-# Configure apt-get proxy
-#RUN echo 'Acquire::http::Proxy "http://PROXY";' >> /etc/apt/apt.conf
+# Configure proxy
+RUN echo 'Acquire::http::Proxy "http://PROXY";' >> /etc/apt/apt.conf
+ENV HTTPS_PROXY http://PROXY
+ENV HTTP_PROXY http://PROXY
 
 # Install system dependencies
 RUN apt-get update && \
@@ -36,10 +38,10 @@ RUN git checkout tags/v-2016-03-07
 
 # Install perl dependencies
 RUN echo 'eval $( perl -Mlocal::lib )' >> ~/.bashrc
-#RUN http_proxy=http://PROXY cpanm --installdeps --notest .
-RUN cpanm SARTAK/MooseX-Role-Parameterized-1.02.tar.gz
+RUN cpanm --installdeps --notest .
 
 # Install nodejs dependencies
+RUN npm install npm -g
 RUN npm install
 
 # Add MusicBrainz config
