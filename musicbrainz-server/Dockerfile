@@ -14,9 +14,9 @@ RUN sed -i -e "s/^# deb\(.*multiverse$\)/deb\1/g" /etc/apt/sources.list
 RUN echo "deb http://cz.archive.ubuntu.com/ubuntu wily main multiverse" >> /etc/apt/sources.list
 
 # Configure proxy
-RUN echo 'Acquire::http::Proxy "http://PROXY";' >> /etc/apt/apt.conf
-ENV HTTPS_PROXY http://PROXY
-ENV HTTP_PROXY http://PROXY
+#RUN echo 'Acquire::http::Proxy "http://PROXY";' >> /etc/apt/apt.conf
+#ENV HTTPS_PROXY http://PROXY
+#ENV HTTP_PROXY http://PROXY
 
 # Install system dependencies
 RUN apt-get update && \
