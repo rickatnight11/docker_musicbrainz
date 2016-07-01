@@ -12,6 +12,9 @@ MAINTAINER Rick White
 # Add extra repos
 RUN sed -i -e "s/^# deb\(.*multiverse$\)/deb\1/g" /etc/apt/sources.list
 RUN echo "deb http://cz.archive.ubuntu.com/ubuntu wily main multiverse" >> /etc/apt/sources.list
+RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ wily-pgdg main" > /etc/apt/sources.list.d/pgdg.list
+ADD https://www.postgresql.org/media/keys/ACCC4CF8.asc /tmp/
+RUN cat /tmp/ACCC4CF8.asc | apt-key add -
 
 # Configure proxy
 #RUN echo 'Acquire::http::Proxy "http://PROXY";' >> /etc/apt/apt.conf
@@ -25,7 +28,7 @@ bash-completion wget vim memcached redis-server \
 build-essential nodejs npm nodejs-legacy libwww-perl \
 libxml2-dev libpq-dev libexpat1-dev libdb-dev \
 libicu-dev liblocal-lib-perl cpanminus libjson-xs-perl \
-postgresql-client-9.4 && \
+postgresql-client-9.5 && \
 apt-get clean autoclean && \
 apt-get autoremove -y && \
 rm -rf /var/lib/{apt,dpkg,cache,log}/
@@ -34,7 +37,7 @@ rm -rf /var/lib/{apt,dpkg,cache,log}/
 RUN mkdir -p /opt/musicbrainz
 WORKDIR /opt/musicbrainz
 RUN git clone --recursive git://github.com/metabrainz/musicbrainz-server.git .
-RUN git checkout tags/v-2016-03-07
+RUN git checkout tags/v-2016-05-23-schema-change-v2
 
 # Install perl dependencies
 RUN echo 'eval $( perl -Mlocal::lib )' >> ~/.bashrc

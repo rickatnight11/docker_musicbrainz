@@ -1,5 +1,6 @@
-FROM postgres:9.4
+FROM postgres:9.5
 MAINTAINER Paulson McIntyre <paul+docker@gpmidi.net>
+MAINTAINER Rick White <rickatnight11@gmail.com>
 
 # Set DB params
 ENV POSTGRES_USER=musicbrainz
@@ -15,8 +16,8 @@ RUN echo "deb http://http.us.debian.org/debian stable main contrib non-free" > /
 RUN apt-get update
 RUN apt-get install -y adduser sudo git unzip unrar \
         bash-completion wget vim build-essential \
-        postgresql-server-dev-9.4 \
-        postgresql-plperl-9.4 libjson-xs-perl libicu-dev \
+        postgresql-server-dev-9.5 \
+        postgresql-plperl-9.5 libjson-xs-perl libicu-dev \
  && apt-get clean autoclean \
  && apt-get autoremove -y \
  && rm -rf /var/lib/{apt,dpkg,cache,log}/

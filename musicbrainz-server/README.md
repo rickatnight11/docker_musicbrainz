@@ -4,7 +4,7 @@ Based on the official Ubuntu 15.10 container, this container runs MusicBrainz
 Server (from the official [git repo](https://github.com/metabrainz/musicbrainz-server)
 ).
 
-**Current Version:** `v-2016-03-07`
+**Current Version:** `v-2016-05-23-schema-change-v2`
 
 Prerequisites
 -------------
@@ -22,7 +22,8 @@ Build Instructions
 1. Modify `DBDefs.pm` to match your environment.  By default it's configured
 appropriately for the related `musicbrainz-postgres` container linked according
 to the **Usage Instructions** below. (Make sure to set your personal
-`REPLICATION_ACCESS_TOKEN` as instructed in the file.)
+`REPLICATION_ACCESS_TOKEN`, as instructed in the file, so you can run the
+replication update script.)
 
 2. Build `musicbrainz-server` container (this will take a while)
 
